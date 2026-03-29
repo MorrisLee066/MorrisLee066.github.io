@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eco Sorting Battle MVP</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial;
+  background: #222;
+  color: white;
+}
+
+/* 手機橫屏（條件啟用） */
+@media (max-width: 768px) {
+  #rotateContainer {
+    position: fixed;
+    width: 100vh;
+    height: 100vw;
+    transform: rotate(90deg);
+    transform-origin: top left;
+    top: 0;
+    left: 100vw;
+  }
+}
+
+#game {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* UI */
+#score {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+}
+
+/* 垃圾 */
+.garbage {
+  position: absolute;
+  font-size: 40px;
+  top: 0;
+  transition: transform 0.1s;
+}
+
+/* 分類桶 */
+.bins {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.bin {
+  padding: 20px;
+  background: #444;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.correct {
+  background: green !important;
+}
+
+.wrong {
+  background: red !important;
+}
+</style>
+</head>
+
+<body>
+<div id="rotateContainer">
+  <div id="game">
+    <div id="score">Score: 0</div>
+    <div id="garbageContainer"></div>
+
+    <div class="bins">
+      <div class="bin" data-type="recycle">♻️ Recycle</div>
+      <div class="bin" data-type="trash">🗑️ Trash</div>
+    </div>
+  </div>
+</div>
+
+<script>
+let score = 0;
+let currentGarbage = null;
+
+const garbageList = [
+  { emoji: "🥤", type: "recycle" },
+  { emoji: "🔋", type: "trash" },
+  { emoji: "📦", type: "recycle" },
+  { emoji: "🍌", type: "trash" }
+];
+
+function spawnGarbage() {
+  const container = document.getElementById("garbageContainer");
+  container.innerHTML = "";
+
+  const item = garbageList[Math.floor(Math.random() * garbageList.length)];
+  currentGarbage = item;
+
+  const div = document.createElement("div");
+  div.className = "garbage";
+  div.innerText = item.emoji;
+
+  const x = Math.random() * (window.innerWidth - 50);
+  div.style.left = x + "px";
+
+  container.appendChild(div);
+
+  let y = 0;
+  const fall = setInterval(() => {
+    y += 5;
+    div.style.top = y + "px";
+
+    if (y > window.innerHeight - 150) {
+      clearInterval(fall);
+      container.innerHTML = "";
+      spawnGarbage();
+    }
+  }, 50);
+}
+
+document.querySelectorAll(".bin").forEach(bin => {
+  bin.addEventListener("click", () => {
+    if (!currentGarbage) return;
+
+    if (bin.dataset.type === currentGarbage.type) {
+      score += 10;
+      bin.classList.add("correct");
+    } else {
+      score -= 5;
+      bin.classList.add("wrong");
+    }
+
+    document.getElementById("score").innerText = "Score: " + score;
+
+    setTimeout(() => {
+      bin.classList.remove("correct", "wrong");
+    }, 200);
+
+    spawnGarbage();
+  });
+});
+
+spawnGarbage();
+</script>
+
+</body>
+</html>
