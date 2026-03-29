@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eco Sorting Battle MVP</title>
+<title>垃圾分類挑戰</title>
 
 <style>
 body {
@@ -14,7 +14,7 @@ body {
   color: white;
 }
 
-/* 手機橫屏（條件啟用） */
+/* 手機橫屏 */
 @media (max-width: 768px) {
   #rotateContainer {
     position: fixed;
@@ -33,20 +33,51 @@ body {
   position: relative;
 }
 
-/* UI */
-#score {
+/* 上方UI */
+#topUI {
   position: absolute;
   top: 10px;
   left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 愛心 */
+#lives {
   font-size: 24px;
 }
 
+/* 倒數 */
+#timerContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#timerBar {
+  width: 200px;
+  height: 20px;
+  background: #555;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#timerFill {
+  height: 100%;
+  width: 100%;
+  background: orange;
+}
+
 /* 垃圾 */
-.garbage {
+#garbage {
   position: absolute;
-  font-size: 40px;
-  top: 0;
-  transition: transform 0.1s;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  cursor: grab;
 }
 
 /* 分類桶 */
@@ -59,12 +90,14 @@ body {
 }
 
 .bin {
-  padding: 20px;
+  width: 20%;
+  padding: 15px;
   background: #444;
+  text-align: center;
   border-radius: 10px;
-  cursor: pointer;
 }
 
+/* 回饋 */
 .correct {
   background: green !important;
 }
@@ -72,85 +105,151 @@ body {
 .wrong {
   background: red !important;
 }
+
+/* 結束畫面 */
+#gameOver {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: none;
+}
 </style>
 </head>
 
 <body>
 <div id="rotateContainer">
   <div id="game">
-    <div id="score">Score: 0</div>
-    <div id="garbageContainer"></div>
+
+    <div id="topUI">
+      <div id="lives">❤️❤️❤️❤️❤️</div>
+
+      <div id="timerContainer">
+        <span>倒數計時</span>
+        <div id="timerBar">
+          <div id="timerFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="garbage">🥤</div>
 
     <div class="bins">
-      <div class="bin" data-type="recycle">♻️ Recycle</div>
-      <div class="bin" data-type="trash">🗑️ Trash</div>
+      <div class="bin" data-type="general">一般垃圾</div>
+      <div class="bin" data-type="recycle">資源回收</div>
+      <div class="bin" data-type="food">可回收廚餘</div>
+      <div class="bin" data-type="other">其它</div>
     </div>
+
+    <div id="gameOver">
+      <h1>遊戲結束</h1>
+      <p id="result"></p>
+      <button onclick="location.reload()">重新開始</button>
+    </div>
+
   </div>
 </div>
 
 <script>
-let score = 0;
-let currentGarbage = null;
+let lives = 5;
+let correctCount = 0;
+let questionCount = 0;
+
+let timeLimit = 10;
+let currentTime = timeLimit;
+let timer;
 
 const garbageList = [
   { emoji: "🥤", type: "recycle" },
-  { emoji: "🔋", type: "trash" },
-  { emoji: "📦", type: "recycle" },
-  { emoji: "🍌", type: "trash" }
+  { emoji: "🍌", type: "food" },
+  { emoji: "🔋", type: "other" },
+  { emoji: "🧻", type: "general" }
 ];
 
+const garbageEl = document.getElementById("garbage");
+
+function updateLives() {
+  document.getElementById("lives").innerText = "❤️".repeat(lives);
+}
+
 function spawnGarbage() {
-  const container = document.getElementById("garbageContainer");
-  container.innerHTML = "";
-
   const item = garbageList[Math.floor(Math.random() * garbageList.length)];
-  currentGarbage = item;
+  garbageEl.innerText = item.emoji;
+  garbageEl.dataset.type = item.type;
 
-  const div = document.createElement("div");
-  div.className = "garbage";
-  div.innerText = item.emoji;
+  startTimer();
+}
 
-  const x = Math.random() * (window.innerWidth - 50);
-  div.style.left = x + "px";
+function startTimer() {
+  clearInterval(timer);
+  currentTime = timeLimit;
 
-  container.appendChild(div);
-
-  let y = 0;
-  const fall = setInterval(() => {
-    y += 5;
-    div.style.top = y + "px";
-
-    if (y > window.innerHeight - 150) {
-      clearInterval(fall);
-      container.innerHTML = "";
+  timer = setInterval(() => {
+    currentTime -= 0.1;
+    if (currentTime <= 0) {
+      loseLife();
       spawnGarbage();
     }
-  }, 50);
+    updateTimer();
+  }, 100);
+}
+
+function updateTimer() {
+  const percent = (currentTime / timeLimit) * 100;
+  document.getElementById("timerFill").style.width = percent + "%";
+}
+
+function loseLife() {
+  lives--;
+  updateLives();
+
+  if (lives <= 0) {
+    endGame();
+  }
+}
+
+function checkAnswer(type, binEl) {
+  clearInterval(timer);
+  questionCount++;
+
+  if (type === garbageEl.dataset.type) {
+    correctCount++;
+    binEl.classList.add("correct");
+  } else {
+    loseLife();
+    binEl.classList.add("wrong");
+  }
+
+  if (questionCount % 5 === 0 && timeLimit > 4) {
+    timeLimit -= 2;
+  }
+
+  setTimeout(() => {
+    document.querySelectorAll(".bin").forEach(b => b.classList.remove("correct", "wrong"));
+    spawnGarbage();
+  }, 300);
 }
 
 document.querySelectorAll(".bin").forEach(bin => {
-  bin.addEventListener("click", () => {
-    if (!currentGarbage) return;
+  bin.addEventListener("dragover", e => e.preventDefault());
 
-    if (bin.dataset.type === currentGarbage.type) {
-      score += 10;
-      bin.classList.add("correct");
-    } else {
-      score -= 5;
-      bin.classList.add("wrong");
-    }
-
-    document.getElementById("score").innerText = "Score: " + score;
-
-    setTimeout(() => {
-      bin.classList.remove("correct", "wrong");
-    }, 200);
-
-    spawnGarbage();
+  bin.addEventListener("drop", () => {
+    checkAnswer(bin.dataset.type, bin);
   });
 });
 
+/* 拖曳 */
+garbageEl.setAttribute("draggable", true);
+
 spawnGarbage();
+
+function endGame() {
+  clearInterval(timer);
+  document.getElementById("gameOver").style.display = "block";
+  document.getElementById("result").innerText =
+    "答對題數：" + correctCount;
+}
 </script>
 
 </body>
