@@ -14,23 +14,29 @@ body {
   color: white;
 }
 
-/* 手機橫屏 */
-@media (max-width: 768px) {
-  #rotateContainer {
-    position: fixed;
-    width: 100vh;
-    height: 100vw;
-    transform: rotate(90deg);
-    transform-origin: top left;
-    top: 0;
-    left: 100vw;
-  }
-}
-
+/* 遊戲容器 */
 #game {
   width: 100vw;
   height: 100vh;
   position: relative;
+}
+
+/* ✅ 手機直向 → 強制橫向顯示 */
+@media screen and (orientation: portrait) {
+  #game {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100vh;
+    height: 100vw;
+
+    transform: rotate(90deg);
+    transform-origin: top left;
+
+    /* 把旋轉後畫面移回可視範圍 */
+    left: 100vw;
+  }
 }
 
 /* 上方UI */
@@ -119,36 +125,35 @@ body {
 </head>
 
 <body>
-<div id="rotateContainer">
-  <div id="game">
 
-    <div id="topUI">
-      <div id="lives">❤️❤️❤️❤️❤️</div>
+<div id="game">
 
-      <div id="timerContainer">
-        <span>倒數計時</span>
-        <div id="timerBar">
-          <div id="timerFill"></div>
-        </div>
+  <div id="topUI">
+    <div id="lives">❤️❤️❤️❤️❤️</div>
+
+    <div id="timerContainer">
+      <span>倒數計時</span>
+      <div id="timerBar">
+        <div id="timerFill"></div>
       </div>
     </div>
-
-    <div id="garbage">🥤</div>
-
-    <div class="bins">
-      <div class="bin" data-type="general">一般垃圾</div>
-      <div class="bin" data-type="recycle">資源回收</div>
-      <div class="bin" data-type="food">可回收廚餘</div>
-      <div class="bin" data-type="other">其它</div>
-    </div>
-
-    <div id="gameOver">
-      <h1>遊戲結束</h1>
-      <p id="result"></p>
-      <button onclick="location.reload()">重新開始</button>
-    </div>
-
   </div>
+
+  <div id="garbage">🥤</div>
+
+  <div class="bins">
+    <div class="bin" data-type="general">一般垃圾</div>
+    <div class="bin" data-type="recycle">資源回收</div>
+    <div class="bin" data-type="food">可回收廚餘</div>
+    <div class="bin" data-type="other">其它</div>
+  </div>
+
+  <div id="gameOver">
+    <h1>遊戲結束</h1>
+    <p id="result"></p>
+    <button onclick="location.reload()">重新開始</button>
+  </div>
+
 </div>
 
 <script>
