@@ -1,66 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Media Queries</title>
-  
+<head>
+  <title>Media Queries</title>
 <style>
   body {
-    margin: 0;
     background: #6fa0d6;
     display: flex;
     justify-content: center;
-    padding: 20px;
+    align-items: center;
+    height: 100vh;
   }
 
   .container {
     background: #fff;
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
     width: 90%;
     max-width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
   }
 
   .box {
-    margin: 5px;
-    border-radius: 5px;
+    margin: 0;
   }
 
   .header {
     background: #a8c65c;
-    height: 80px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .content-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+    flex: 1;
   }
 
   .content {
     background: #5fa8b5;
-    height: 60px;
+    flex: 1;
+  }
+
+  .footer-group {
+    display: grid;
+    height: 100px;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 5px;
+    column-gap: 15px;
+    height: 90px;
   }
 
   .footer {
     background: #ccc;
-    height: 50px;
+    height: 100%;
   }
 
-  /* 小螢幕：灰色變 2x2 */
-  .footer-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* 大於480px */
   @media (min-width: 480px) {
+    .header {
+      height: 130px;
+      margin-bottom: 8px;
+    }
+
     .content-group {
-      display: flex;
+      flex-direction: row;
     }
 
-    .content {
-      flex: 1;
-      height: 120px;
-    }
-
-    /* 灰色變一列四格 */
     .footer-group {
-      display: grid;
       grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
     }
   }
 </style>
