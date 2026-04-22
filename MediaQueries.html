@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Media Queries</title>
+  
+<style>
+  body {
+    margin: 0;
+    background: #6fa0d6;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .container {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+  }
+
+  .box {
+    margin: 5px;
+    border-radius: 5px;
+  }
+
+  .header {
+    background: #a8c65c;
+    height: 80px;
+  }
+
+  .content {
+    background: #5fa8b5;
+    height: 60px;
+  }
+
+  .footer {
+    background: #ccc;
+    height: 50px;
+  }
+
+  /* 小螢幕：灰色變 2x2 */
+  .footer-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 大於480px */
+  @media (min-width: 480px) {
+    .content-group {
+      display: flex;
+    }
+
+    .content {
+      flex: 1;
+      height: 120px;
+    }
+
+    /* 灰色變一列四格 */
+    .footer-group {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="box header"></div>
+
+  <div class="content-group">
+    <div class="box content"></div>
+    <div class="box content"></div>
+    <div class="box content"></div>
+  </div>
+
+  <div class="footer-group">
+    <div class="box footer"></div>
+    <div class="box footer"></div>
+    <div class="box footer"></div>
+    <div class="box footer"></div>
+  </div>
+</div>
+
+</body>
+</html>
