@@ -36,7 +36,6 @@ body{
 }
 
 .btn{
-  margin:0;
   height:22px;
   line-height:22px;
   padding:0 18px;
@@ -53,18 +52,22 @@ body{
 }
 
 .main{
-  margin-top:10px;
-  padding:0 26px 18px 20px;
+  height:250px;
+  padding:5px 0 5px 20px;
   box-sizing:border-box;
 }
 
 .scroll-area{
-  height:260px;
+  height:100%;
   overflow-y:auto;
   overflow-x:hidden;
-  margin-right:-26px;
-  padding-right:26px;
+  box-sizing:border-box;
   scrollbar-gutter: stable;
+}
+
+.image-area{
+  padding-right:18px;
+  box-sizing:border-box;
 }
 
 .image-area img{
@@ -76,7 +79,7 @@ body{
 
 .info-box{
   margin-top:10px;
-  padding:10px 0;
+  padding-right:26px;
   font-size:13px;
   color:#707070;
   display:none;
