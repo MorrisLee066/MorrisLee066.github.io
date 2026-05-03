@@ -80,30 +80,19 @@
       #home{
         display:flex;
         flex-direction:column;
-        justify-content:flex-start; /* 改成從上開始 */
+        justify-content:center; /* 改成從上開始 */
         align-items:center;
         padding-top:18vh; /* ⭐ 關鍵：整體往下 */
         gap:28px;
       }
       
-      /* 上半部 */
-      #homeTop{
-        flex:1;
-        display:flex;
-        justify-content:center;
-        align-items:flex-end;
-        padding-bottom:40px;
-      }
-      
-      /* 下半部 */
-      #homeBottom{
-        flex:1;
+      #homeGroup{
         display:flex;
         flex-direction:column;
-        justify-content:flex-start;
         align-items:center;
-        gap:24px;
-        padding-top:40px;
+        gap:28px;
+      
+        transform: translateY(5vh); /* ⭐ 微調往下（關鍵） */
       }
       
       #title{
@@ -501,11 +490,9 @@
       
       <div class="page" id="home">
       
-        <div id="homeTop">
+        <div id="homeGroup">
           <div id="title">垃圾分類挑戰</div>
-        </div>
       
-        <div id="homeBottom">
           <button class="menuBtn startBtn" onclick="startGame()">開始</button>
           <button class="menuBtn listBtn" onclick="showPage('reference')">分類一覽表</button>
         </div>
