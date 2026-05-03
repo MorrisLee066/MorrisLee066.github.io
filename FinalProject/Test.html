@@ -80,7 +80,10 @@
       #home{
         display:flex;
         flex-direction:column;
-        height:100%;
+        justify-content:flex-start; /* 改成從上開始 */
+        align-items:center;
+        padding-top:18vh; /* ⭐ 關鍵：整體往下 */
+        gap:28px;
       }
       
       /* 上半部 */
