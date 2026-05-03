@@ -46,18 +46,10 @@
       #detailImg{
         -webkit-user-drag:none;
       }
-
-      /* ===== ⭐ 關鍵修正：視窗單位修正 ===== */
-      :root{
-        --vh: 1vh;
-        --vw: 1vw;
-      }
         
       #app{
         width:100vw;
-        width:100dvw;
         height:100vh;
-        height:100dvh;
         position:relative;
         overflow:hidden;
       }
@@ -70,8 +62,6 @@
           left:100vw;
           width:100vh;
           height:100vw;
-          width:100dvh;
-          height:100dvw;
           transform:rotate(90deg);
           transform-origin:top left;
           overflow:hidden;
@@ -116,6 +106,7 @@
       #title{
         font-size:56px;
         color:#FFF;
+        text-align:center;
       }
       
       .menuBtn{
@@ -127,6 +118,7 @@
         color:#FFF;
         background:#444;
         cursor:pointer;
+        text-align:center;
       }
       
       /* 一覽表 */
@@ -150,6 +142,7 @@
         margin-bottom:16px;
       }
       
+      /* 新增分類一覽表版型 */
       #refWrap{
         width:100%;
         height:78%;
@@ -220,7 +213,7 @@
         color:#fff;
       }
       
-      /* 詳細 */
+      /* 詳細資料彈窗 */
       #detailMask{
         position:absolute;
         inset:0;
@@ -281,7 +274,7 @@
       /* 遊戲頁 */
       #questionNumber{
         position:absolute;
-        top:calc(1 * var(--vh));
+        top:1vh;
         left:50%;
         transform:translateX(-50%);
         font-size:32px;
@@ -289,7 +282,7 @@
       
       #topBar{
         position:absolute;
-        top:calc(6 * var(--vh));
+        top:6vh;
         left:2vw;
         right:2vw;
         display:flex;
@@ -302,10 +295,9 @@
         gap:8px;
       }
       
-      /* ⭐ 修正：避免 vh 被瀏覽器遮住 */
       .life{
-        width:calc(12 * var(--vh));
-        height:calc(12 * var(--vh));
+        width:12vh;
+        height:12vh;
       }
       
       #timerWrap{
@@ -350,7 +342,7 @@
       
       #bins{
         position:absolute;
-        bottom:calc(4 * var(--vh));
+        bottom:4vh;
         width:100%;
         display:flex;
         justify-content:space-evenly;
@@ -391,7 +383,7 @@
         color:#fff;
         border-radius:18px;
         padding:28px;
-        text-align:left;
+        text-align:left; /* ← 改這個 */
         display:none;
       }
       
@@ -406,6 +398,7 @@
         height:140px;
         object-fit:cover;
         border-radius:12px;
+        background:#555;
       }
       
       #feedbackRight{
@@ -433,6 +426,7 @@
         color:#fff;
       }
       
+      /* 結束 */
       #gameOver{
         position:absolute;
         inset:0;
@@ -478,6 +472,21 @@
       .endBtn{
         box-shadow:0 6px 0 #2a2a2a;
         transition:all 0.1s ease;
+      }
+      .menuBtn:active,
+      .topBack:active,
+      #detailClose:active,
+      #nextBtn:active,
+      .endBtn:active{
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 #2a2a2a;
+      }
+      .menuBtn:hover,
+      .topBack:hover,
+      #detailClose:hover,
+      #nextBtn:hover,
+      .endBtn:hover{
+        background:#666;
       }
       
     </style>
