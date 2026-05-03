@@ -12,20 +12,13 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
   margin:0;
   padding:0;
   box-sizing:border-box;
-  -webkit-user-drag:none;
 }
 
 body{
   font-family:Arial, sans-serif;
   background:#222222;
-  color:#ffffff;
   overflow:hidden;
-  user-select:none;
-}
-
-img{
-  user-select:none;
-  -webkit-user-drag:none;
+  color:#fff;
 }
 
 #app{
@@ -35,6 +28,7 @@ img{
   overflow:hidden;
 }
 
+/* 手機直式變橫向 */
 @media screen and (orientation:portrait){
   #app{
     position:absolute;
@@ -48,14 +42,16 @@ img{
 }
 
 .page{
+  width:100%;
+  height:100%;
   display:none;
   position:absolute;
   inset:0;
 }
 
-/* ======================
+/* =====================
    首頁
-====================== */
+===================== */
 #home{
   display:flex;
   flex-direction:column;
@@ -66,8 +62,8 @@ img{
 
 #title{
   font-size:56px;
-  font-weight:bold;
   color:#ffcc33;
+  font-weight:bold;
 }
 
 .menuBtn{
@@ -82,9 +78,81 @@ img{
 .startBtn{background:#45d15c;}
 .listBtn{background:#3ea6ff;}
 
-/* ======================
+/* =====================
+   一覽表
+===================== */
+#reference{
+  padding:30px;
+}
+
+.topBack{
+  padding:12px 24px;
+  border:none;
+  border-radius:12px;
+  font-size:22px;
+  cursor:pointer;
+  margin-bottom:18px;
+}
+
+#refTitle{
+  text-align:center;
+  font-size:42px;
+  margin-bottom:24px;
+}
+
+#itemsGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.itemCard{
+  background:#333;
+  border-radius:16px;
+  padding:15px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.itemCard img{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+}
+
+.itemName{
+  margin-top:8px;
+  font-size:20px;
+}
+
+#detailBox{
+  margin-top:22px;
+  background:#333;
+  border-radius:18px;
+  padding:20px;
+  display:none;
+}
+
+#detailFlex{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+
+#detailImg{
+  width:110px;
+  height:110px;
+  object-fit:contain;
+}
+
+/* =====================
    遊戲頁
-====================== */
+===================== */
+#gamePage{
+  background:#222222;
+}
+
+/* 題號 */
 #questionNumber{
   position:absolute;
   top:1vh;
@@ -92,8 +160,10 @@ img{
   transform:translateX(-50%);
   font-size:32px;
   font-weight:bold;
+  z-index:10;
 }
 
+/* 上方UI */
 #topBar{
   position:absolute;
   top:6vh;
@@ -134,6 +204,7 @@ img{
   background:#ffae00;
 }
 
+/* 中間垃圾 */
 #garbageArea{
   position:absolute;
   top:30%;
@@ -149,15 +220,12 @@ img{
   cursor:grab;
 }
 
-#garbage:active{
-  cursor:grabbing;
-}
-
 #garbageName{
   margin-top:12px;
   font-size:28px;
 }
 
+/* 下方桶 */
 #bins{
   position:absolute;
   bottom:4vh;
@@ -176,9 +244,9 @@ img{
   width:100%;
   max-height:150px;
   object-fit:contain;
-  pointer-events:none;
 }
 
+/* 其他 */
 .otherBox{
   width:100%;
   height:140px;
@@ -192,17 +260,15 @@ img{
   color:#fff;
 }
 
-/* ======================
-   回饋
-====================== */
+/* 回饋 */
 #feedback{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   width:60%;
-  background:#ffffff;
-  color:#222222;
+  background:#fff;
+  color:#222;
   border-radius:18px;
   padding:28px;
   text-align:center;
@@ -230,9 +296,7 @@ img{
   cursor:pointer;
 }
 
-/* ======================
-   結束
-====================== */
+/* 結束 */
 #gameOver{
   position:absolute;
   inset:0;
@@ -244,8 +308,8 @@ img{
 
 #gameOverBox{
   width:420px;
-  background:#ffffff;
-  color:#222222;
+  background:#fff;
+  color:#222;
   padding:30px;
   border-radius:20px;
   text-align:center;
@@ -273,6 +337,55 @@ img{
 
   <button class="menuBtn startBtn"
   onclick="startGame()">開始</button>
+
+  <button class="menuBtn listBtn"
+  onclick="showPage('reference')">分類一覽表</button>
+</div>
+
+<!-- 一覽表 -->
+<div class="page" id="reference">
+
+<button class="topBack"
+onclick="showPage('home')">回首頁</button>
+
+<div id="refTitle">分類一覽表</div>
+
+<div id="itemsGrid">
+
+<div class="itemCard"
+onclick="showDetail('矽膠保鮮盒','圖片網址','一般垃圾','妥善裝袋後交給垃圾車')">
+<img src="圖片網址">
+<div class="itemName">矽膠保鮮盒</div>
+</div>
+
+<div class="itemCard">
+<img src="圖片網址">
+<div class="itemName">衛生紙</div>
+</div>
+
+<div class="itemCard">
+<img src="圖片網址">
+<div class="itemName">壁紙</div>
+</div>
+
+<div class="itemCard">
+<img src="圖片網址">
+<div class="itemName">紙本發票</div>
+</div>
+
+</div>
+
+<div id="detailBox">
+<div id="detailFlex">
+<img id="detailImg" src="">
+<div>
+<h2 id="detailName"></h2>
+<p id="detailType"></p>
+<p id="detailDesc"></p>
+</div>
+</div>
+</div>
+
 </div>
 
 <!-- 遊戲頁 -->
@@ -294,7 +407,7 @@ img{
 </div>
 
 <div id="garbageArea">
-<img id="garbage" src="" draggable="true">
+<img id="garbage" draggable="true" src="">
 <div id="garbageName"></div>
 </div>
 
@@ -333,6 +446,9 @@ img{
 <button class="endBtn"
 onclick="startGame()">再來一次</button>
 
+<button class="endBtn"
+onclick="showPage('home')">回首頁</button>
+
 </div>
 </div>
 
@@ -340,7 +456,7 @@ onclick="startGame()">再來一次</button>
 </div>
 
 <script>
-const heartURL = "heart.jpg";
+const heartURL = "heart.webp";
 
 const garbageList = [
 {
@@ -376,7 +492,6 @@ let current;
 let timeLimit;
 let endTime;
 let timer;
-let answered = false;
 
 function showPage(id){
 document.querySelectorAll(".page")
@@ -387,16 +502,20 @@ document.getElementById(id).style.display="block";
 
 showPage("home");
 
-/* ===================
-   開始
-=================== */
+function showDetail(name,img,type,desc){
+document.getElementById("detailBox").style.display="block";
+document.getElementById("detailImg").src=img;
+document.getElementById("detailName").innerText=name;
+document.getElementById("detailType").innerText=type;
+document.getElementById("detailDesc").innerText=desc;
+}
+
 function startGame(){
 
-lives = 5;
-score = 0;
-totalQ = 0;
-timeLimit = 10;
-answered = false;
+lives=5;
+score=0;
+totalQ=0;
+timeLimit=10;
 
 document.getElementById("gameOver").style.display="none";
 
@@ -406,26 +525,18 @@ renderLives();
 nextQuestion();
 }
 
-/* ===================
-   愛心
-=================== */
 function renderLives(){
 
-let html = "";
+let html="";
 
 for(let i=0;i<lives;i++){
 html += `<img class="life" src="${heartURL}">`;
 }
 
-document.getElementById("lives").innerHTML = html;
+document.getElementById("lives").innerHTML=html;
 }
 
-/* ===================
-   出題
-=================== */
 function nextQuestion(){
-
-answered = false;
 
 document.getElementById("feedback").style.display="none";
 
@@ -435,54 +546,40 @@ document.getElementById("questionNumber").innerText =
 "第 " + totalQ + " 題";
 
 timeLimit = 10 - Math.floor((totalQ-1)/5)*2;
+
 if(timeLimit < 4) timeLimit = 4;
 
 current =
 garbageList[Math.floor(Math.random()*garbageList.length)];
 
-const g = document.getElementById("garbage");
-g.src = current.img;
-g.dataset.type = current.type;
-
+document.getElementById("garbage").src = current.img;
 document.getElementById("garbageName").innerText =
 current.name;
 
-/* 倒數條立刻滿 */
 const fill = document.getElementById("timerFill");
-fill.style.transition = "none";
-fill.style.width = "100%";
+fill.style.transition="none";
+fill.style.width="100%";
 
 requestAnimationFrame(()=>{
-fill.style.transition = "width .05s linear";
+fill.style.transition="width .05s linear";
 });
 
 startTimer();
 }
 
-/* ===================
-   計時
-=================== */
 function startTimer(){
 
 clearInterval(timer);
 
-endTime = Date.now() + timeLimit * 1000;
+endTime = Date.now() + timeLimit*1000;
 
 timer = setInterval(()=>{
 
 let remain = endTime - Date.now();
 
 if(remain <= 0){
-
 clearInterval(timer);
-
-/* 歸零 */
-document.getElementById("timerFill").style.width = "0%";
-
-if(!answered){
 wrongAnswer();
-}
-
 return;
 }
 
@@ -492,20 +589,15 @@ remain / (timeLimit*1000) * 100;
 document.getElementById("timerFill").style.width =
 percent + "%";
 
-},30);
+},50);
 }
 
-/* ===================
-   答錯
-=================== */
 function wrongAnswer(){
-
-answered = true;
 
 lives--;
 renderLives();
 
-if(lives <= 0){
+if(lives<=0){
 endGame();
 return;
 }
@@ -513,17 +605,11 @@ return;
 showFeedback(false);
 }
 
-/* ===================
-   僅允許垃圾圖拖曳
-=================== */
 const garbage =
 document.getElementById("garbage");
 
 garbage.addEventListener("dragstart",e=>{
-
-e.dataTransfer.setData("garbage","true");
 e.dataTransfer.setData("type",current.type);
-
 });
 
 document.querySelectorAll(".bin").forEach(bin=>{
@@ -536,19 +622,7 @@ bin.addEventListener("drop",e=>{
 
 e.preventDefault();
 
-if(answered) return;
-
-/* 非垃圾物件拖入無效 */
-if(e.dataTransfer.getData("garbage") !== "true"){
-return;
-}
-
 clearInterval(timer);
-
-/* 歸零 */
-document.getElementById("timerFill").style.width = "0%";
-
-answered = true;
 
 let user = bin.dataset.type;
 
@@ -563,35 +637,26 @@ wrongAnswer();
 
 });
 
-/* ===================
-   回饋
-=================== */
 function showFeedback(correct){
 
 document.getElementById("feedback").style.display="block";
 
 if(correct){
-
 document.getElementById("feedbackTitle").innerHTML =
 "<span style='color:green'>正確！</span>";
-
 }else{
-
 document.getElementById("feedbackTitle").innerHTML =
 "<span style='color:red'>錯誤！</span>";
 }
 
 document.getElementById("feedbackText").innerHTML =
-`為${typeName(current.type)}<br>${current.desc}`;
+`為 ${typeName(current.type)}<br>${current.desc}`;
 }
 
-document.getElementById("nextBtn").onclick = ()=>{
+document.getElementById("nextBtn").onclick=()=>{
 nextQuestion();
 };
 
-/* ===================
-   結束
-=================== */
 function endGame(){
 
 clearInterval(timer);
@@ -599,13 +664,9 @@ clearInterval(timer);
 document.getElementById("finalScore").innerText =
 "本次答對 " + score + " 題";
 
-document.getElementById("gameOver").style.display =
-"flex";
+document.getElementById("gameOver").style.display="flex";
 }
 
-/* ===================
-   中文名稱
-=================== */
 function typeName(type){
 
 if(type==="general") return "一般垃圾";
