@@ -86,23 +86,34 @@
         gap:28px;
       }
       
+      /* 首頁 */
+      #home{
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-start;
+        align-items:center;
+        padding-top:18vh; /* ✅ 保留 vh（很好） */
+        gap:3vh;          /* 28px → 約 3vh */
+      }
+      
       /* 上半部 */
       #homeTop{
         flex:1;
         display:flex;
         justify-content:center;
         align-items:flex-end;
-        padding-bottom:20px; /* 原本40 → 減少 */
+        padding-bottom:3vh; /* 40px → 約 3vh */
       }
       
+      /* 下半部 */
       #homeBottom{
-        flex:1.2; /* ⭐ 讓下面區域變大 */
+        flex:1;
         display:flex;
         flex-direction:column;
         justify-content:flex-start;
         align-items:center;
-        gap:24px;
-        padding-top:20px;
+        gap:2.5vh;         /* 24px → 約 2.5vh */
+        padding-top:3vh;   /* 40px → 約 3vh */
       }
       
       #title{
