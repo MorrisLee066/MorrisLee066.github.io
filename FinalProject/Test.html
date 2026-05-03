@@ -499,6 +499,7 @@ let timeLimit;
 let endTime;
 let timer;
 let canDrop = false;
+let draggingGarbage = false;
 
 function showPage(id){
 document.querySelectorAll(".page")
@@ -614,12 +615,15 @@ return;
 showFeedback(false);
 }
 
-/* 只允許垃圾圖片可拖曳 */
+/* 只允許垃圾圖示拖曳 */
 const garbage = document.getElementById("garbage");
 
 garbage.addEventListener("dragstart",e=>{
-e.dataTransfer.setData("garbage","true");
-e.dataTransfer.setData("type",current.type);
+draggingGarbage = true;
+});
+
+garbage.addEventListener("dragend",e=>{
+draggingGarbage = false;
 });
 
 document.querySelectorAll(".bin").forEach(bin=>{
@@ -635,17 +639,12 @@ bin.addEventListener("drop",e=>{
 e.preventDefault();
 
 if(!canDrop) return;
+if(!draggingGarbage) return;
 
-/* 驗證是否真的是垃圾圖片 */
-const isGarbage =
-e.dataTransfer.getData("garbage");
-
-if(isGarbage !== "true") return;
-
+draggingGarbage = false;
 canDrop = false;
 
 clearInterval(timer);
-
 document.getElementById("timerFill").style.width = "0%";
 
 let user = bin.dataset.type;
