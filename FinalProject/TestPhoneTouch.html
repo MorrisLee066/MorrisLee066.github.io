@@ -46,12 +46,7 @@
       #detailImg{
         -webkit-user-drag:none;
       }
-      
-      /* 垃圾圖可拖曳 */
-      #garbage{
-        -webkit-user-drag:element;
-      }
-      
+        
       #app{
         width:100vw;
         height:100vh;
@@ -317,6 +312,7 @@
         width:160px;
         height:160px;
         object-fit:contain;
+        -webkit-user-drag:element;
       }
       
       #garbageName{
@@ -425,7 +421,7 @@
         -webkit-tap-highlight-color: transparent;
       }
       
-      button, .itemCard{
+      button, .itemCard, #garbage{
         outline: none;
         cursor:pointer;
       }
