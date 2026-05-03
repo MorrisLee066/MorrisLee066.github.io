@@ -38,6 +38,7 @@
         user-select:none;
       }
       
+      /* 非遊戲垃圾圖禁止拖曳 */
       .life,
       .itemCard img,
       .bin img,
@@ -45,6 +46,7 @@
         -webkit-user-drag:none;
       }
       
+      /* 垃圾圖可拖曳 */
       #garbage{
         -webkit-user-drag:element;
       }
@@ -56,6 +58,7 @@
         overflow:hidden;
       }
       
+      /* 手機直式變橫向 */
       @media screen and (orientation:portrait){
         #app{
           position:absolute;
@@ -114,7 +117,7 @@
       
       /* 一覽表 */
       #reference{
-        padding:24px;
+        padding:20px;
       }
       
       .topBack{
@@ -134,44 +137,55 @@
         box-shadow:0 2px 0 #2a2a2a;
       }
       
-      #refWrap{
-        width:100%;
-        height:78vh;
-        display:flex;
-        align-items:flex-start;
-        gap:0;
+      .topBack:hover{
+        background:#666;
       }
       
-      #leftTabs{
-        width:22%;
+      #refTitle{
+        text-align:center;
+        font-size:42px;
+        margin-bottom:16px;
+      }
+      
+      /* 新增分類一覽表版型 */
+      #refWrap{
+        width:100%;
+        height:78%;
+        display:flex;
+        gap:0;
+        align-items:stretch;
+      }
+      
+      #categoryTabs{
+        width:18%;
         display:flex;
         flex-direction:column;
+        justify-content:center;
         gap:10px;
-        padding-top:8px;
+        z-index:2;
       }
       
       .tabBtn{
         width:100%;
-        padding:18px 10px;
-        font-size:22px;
-        color:#fff;
-        background:#2d2d2d;
+        padding:18px 8px;
         border:none;
         border-radius:20px 0 0 20px;
+        background:#2d2d2d;
+        color:#fff;
+        font-size:26px;
         transition:all .2s;
       }
       
       .tabBtn.active{
         background:#444444;
         transform:scale(1.08);
-        transform-origin:right center;
       }
       
-      #rightPanel{
-        width:78%;
+      #itemsPanel{
+        width:82%;
         height:100%;
         background:#444444;
-        border-radius:24px;
+        border-radius:28px;
         padding:18px;
         overflow-y:auto;
       }
@@ -179,12 +193,12 @@
       #itemsGrid{
         display:grid;
         grid-template-columns:repeat(4,1fr);
-        gap:14px;
+        gap:16px;
       }
       
       .itemCard{
-        background:#f2f2f2;
-        border-radius:12px;
+        background:#f1f1f1;
+        border-radius:10px;
         padding:8px;
         text-align:center;
         color:#fff;
@@ -194,41 +208,42 @@
         width:100%;
         height:90px;
         object-fit:cover;
-        border-radius:10px;
+        border-radius:8px;
       }
       
       .itemName{
         margin-top:8px;
         font-size:18px;
-        color:#ffffff;
+        color:#fff;
       }
       
-      #detailBox{
+      /* 詳細資料彈窗 */
+      #detailMask{
         position:absolute;
         inset:0;
-        background:rgba(0,0,0,.55);
+        background:rgba(0,0,0,.45);
         display:none;
         justify-content:center;
         align-items:center;
-        z-index:50;
+        z-index:10;
       }
       
-      #detailCard{
-        width:72%;
-        background:#6a6666;
+      #detailBox{
+        width:70%;
+        background:#666;
         border-radius:26px;
-        padding:28px;
+        padding:24px;
       }
       
       #detailFlex{
         display:flex;
-        gap:26px;
+        gap:24px;
         align-items:flex-start;
       }
       
       #detailImg{
-        width:140px;
-        height:140px;
+        width:150px;
+        height:150px;
         object-fit:cover;
         border-radius:14px;
       }
@@ -238,25 +253,26 @@
       }
       
       #detailName{
-        font-size:42px;
-        margin-bottom:16px;
+        font-size:40px;
+        margin-bottom:18px;
       }
       
+      #detailType,
       #detailDesc{
-        font-size:30px;
-        line-height:1.5;
+        font-size:28px;
+        line-height:1.6;
       }
       
-      #closeDetail{
-        margin:22px auto 0;
+      #detailClose{
+        margin:24px auto 0;
         display:block;
-        width:180px;
+        width:160px;
         padding:14px;
+        font-size:28px;
         border:none;
         border-radius:16px;
-        background:#8d8a8a;
+        background:#888;
         color:#fff;
-        font-size:28px;
       }
       
       /* 遊戲頁 */
@@ -361,6 +377,7 @@
         font-weight:bold;
       }
       
+      /* 回饋 */
       #feedback{
         position:absolute;
         top:50%;
@@ -396,6 +413,7 @@
         color:#fff;
       }
       
+      /* 結束 */
       #gameOver{
         position:absolute;
         inset:0;
@@ -431,38 +449,38 @@
       
       <div class="page" id="home">
         <div id="title">垃圾分類挑戰</div>
-        <button class="menuBtn" onclick="startGame()">開始</button>
-        <button class="menuBtn" onclick="showPage('reference')">分類一覽表</button>
+        <button class="menuBtn startBtn" onclick="startGame()">開始</button>
+        <button class="menuBtn listBtn" onclick="showPage('reference')">分類一覽表</button>
       </div>
       
       <div class="page" id="reference">
         <button class="topBack" onclick="showPage('home')">回首頁</button>
+        <div id="refTitle">分類一覽表</div>
         
         <div id="refWrap">
-          
-          <div id="leftTabs">
-            <button class="tabBtn active" onclick="selectTab('general',this)">一般垃圾</button>
-            <button class="tabBtn" onclick="selectTab('recycle',this)">資源回收</button>
-            <button class="tabBtn" onclick="selectTab('food',this)">廚餘回收</button>
-            <button class="tabBtn" onclick="selectTab('other',this)">其他</button>
+          <div id="categoryTabs">
+            <button class="tabBtn active" onclick="changeCategory('general',this)">一般垃圾</button>
+            <button class="tabBtn" onclick="changeCategory('recycle',this)">資源回收</button>
+            <button class="tabBtn" onclick="changeCategory('food',this)">廚餘回收</button>
+            <button class="tabBtn" onclick="changeCategory('other',this)">其他</button>
           </div>
           
-          <div id="rightPanel">
+          <div id="itemsPanel">
             <div id="itemsGrid"></div>
           </div>
-          
         </div>
         
-        <div id="detailBox">
-          <div id="detailCard">
+        <div id="detailMask">
+          <div id="detailBox">
             <div id="detailFlex">
               <img id="detailImg" src="">
               <div id="detailText">
-                <div id="detailName"></div>
-                <div id="detailDesc"></div>
+                <h2 id="detailName"></h2>
+                <p id="detailType"></p>
+                <p id="detailDesc"></p>
               </div>
             </div>
-            <button id="closeDetail" onclick="closeDetail()">確定</button>
+            <button id="detailClose" onclick="closeDetail()">確定</button>
           </div>
         </div>
       </div>
@@ -516,15 +534,12 @@
       const heartURL = "heart.webp";
       
       const garbageList = [
-        {name:"塑膠保鮮盒",img:"image (5).png",type:"recycle",desc:"簡易清潔後交給回收車。"},
-        {name:"衛生紙",img:"image (4).png",type:"general",desc:"妥善裝袋後交給垃圾車。"},
-        {name:"壁紙",img:"image (2).png",type:"general",desc:"裝袋後丟一般垃圾。"},
-        {name:"紙本發票",img:"image (3).png",type:"general",desc:"一般垃圾處理。"},
-        {name:"鋁箔包",img:"image (6).png",type:"recycle",desc:"清空後交回收。"},
-        {name:"延長線",img:"image (7).png",type:"recycle",desc:"屬資源回收類。"},
-        {name:"遙控器",img:"image (1).png",type:"other",desc:"電池拆下分類回收。"},
-        {name:"洋芋片袋",img:"image.png",type:"general",desc:"不可回收，丟一般垃圾。"},
-        {name:"果皮菜葉",img:"image-removebg-preview.png",type:"food",desc:"投入廚餘桶。"}
+        {name:"塑膠保鮮盒",img:"image (5).png",type:"recycle",desc:"請簡易清潔後，交給清潔隊循線回收車。"},
+        {name:"衛生紙",img:"image (4).png",type:"general",desc:"妥善裝袋後交給循線垃圾車。"},
+        {name:"葉菜、果皮類、剩菜",img:"image (6).png",type:"food",desc:"可回收廚餘：請瀝乾後丟至廚餘回收桶。"},
+        {name:"鹼性電池",img:"image (7).png",type:"other",desc:"請妥善分類後，單獨交給清潔隊循線回收車。"},
+        {name:"壁紙",img:"image (2).png",type:"general",desc:"裝袋後交垃圾車。"},
+        {name:"紙本發票",img:"image (3).png",type:"general",desc:"可當一般垃圾。"}
       ];
       
       let lives,score,totalQ,current,timeLimit,endTime,timer;
@@ -536,41 +551,42 @@
         document.getElementById(id).style.display="block";
         
         if(id==="reference"){
-          renderCategory("general");
+          changeCategory("general",document.querySelector(".tabBtn"));
         }
       }
       showPage("home");
       
-      function renderCategory(type){
+      /* ===== 分類一覽表新增功能 ===== */
+      function changeCategory(type,btn){
+        document.querySelectorAll(".tabBtn").forEach(t=>{
+          t.classList.remove("active");
+        });
+        btn.classList.add("active");
+        
         let html="";
         
-        garbageList.filter(g=>g.type===type).forEach(g=>{
+        garbageList.filter(item=>item.type===type).forEach(item=>{
           html += `
-          <div class="itemCard" onclick="openDetail('${g.name}','${g.img}','${typeName(g.type)}','${g.desc}')">
-            <img src="${g.img}">
-            <div class="itemName">${g.name}</div>
-          </div>
-          `;
+          <div class="itemCard"
+          onclick="showDetail('${item.name}','${item.img}','${typeName(item.type)}','${item.desc}')">
+            <img src="${item.img}">
+            <div class="itemName">${item.name}</div>
+          </div>`;
         });
         
         document.getElementById("itemsGrid").innerHTML=html;
       }
       
-      function selectTab(type,btn){
-        document.querySelectorAll(".tabBtn").forEach(t=>t.classList.remove("active"));
-        btn.classList.add("active");
-        renderCategory(type);
-      }
-      
-      function openDetail(name,img,type,desc){
+      function showDetail(name,img,type,desc){
+        document.getElementById("detailMask").style.display="flex";
         document.getElementById("detailImg").src=img;
-        document.getElementById("detailName").innerHTML="為"+type;
-        document.getElementById("detailDesc").innerHTML=desc;
-        document.getElementById("detailBox").style.display="flex";
+        document.getElementById("detailName").innerText="為"+type;
+        document.getElementById("detailType").innerText=desc;
+        document.getElementById("detailDesc").innerText="";
       }
       
       function closeDetail(){
-        document.getElementById("detailBox").style.display="none";
+        document.getElementById("detailMask").style.display="none";
       }
       
       function startGame(){
@@ -593,14 +609,18 @@
       
       function nextQuestion(){
         document.getElementById("feedback").style.display="none";
+        
         totalQ++;
         document.getElementById("questionNumber").innerText="第 "+totalQ+" 題";
         
-        timeLimit=10;
+        timeLimit=10-Math.floor((totalQ-1)/5)*2;
+        if(timeLimit<4) timeLimit=4;
+        
         current=garbageList[Math.floor(Math.random()*garbageList.length)];
         
         document.getElementById("garbage").src=current.img;
         document.getElementById("garbageName").innerText=current.name;
+        
         document.getElementById("timerFill").style.width="100%";
         
         canDrop=true;
@@ -609,6 +629,7 @@
       
       function startTimer(){
         clearInterval(timer);
+        
         endTime=Date.now()+timeLimit*1000;
         
         timer=setInterval(()=>{
@@ -647,10 +668,13 @@
       
       function showFeedback(correct){
         document.getElementById("feedback").style.display="block";
-        document.getElementById("feedbackTitle").innerHTML=
-        correct?"<span style='color:#4fbe41'>正確！</span>":"<span style='color:red'>錯誤！</span>";
         
-        document.getElementById("feedbackText").innerHTML=
+        document.getElementById("feedbackTitle").innerHTML =
+        correct ?
+        "<span style='color:#4fbe41'>正確！</span>" :
+        "<span style='color:red'>錯誤！</span>";
+        
+        document.getElementById("feedbackText").innerHTML =
         `為${typeName(current.type)}<br>${current.desc}`;
       }
       
@@ -693,13 +717,43 @@
           canDrop=false;
           clearInterval(timer);
           
-          if(bin.dataset.type===current.type){
+          let user=bin.dataset.type;
+          
+          if(user===current.type){
             score++;
             showFeedback(true);
           }else{
             wrongAnswer(false);
           }
         });
+      });
+      
+      garbage.addEventListener("touchstart",()=>{
+        dragging=true;
+      });
+      
+      garbage.addEventListener("touchend",e=>{
+        if(!canDrop || !dragging) return;
+        
+        dragging=false;
+        
+        let touch=e.changedTouches[0];
+        let target=document.elementFromPoint(touch.clientX,touch.clientY);
+        let bin=target.closest(".bin");
+        
+        if(!bin) return;
+        
+        canDrop=false;
+        clearInterval(timer);
+        
+        let user=bin.dataset.type;
+        
+        if(user===current.type){
+          score++;
+          showFeedback(true);
+        }else{
+          wrongAnswer(false);
+        }
       });
     </script>
     
