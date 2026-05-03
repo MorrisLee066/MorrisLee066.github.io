@@ -97,12 +97,24 @@ img{
 
 .menuBtn{
   width:320px;
-  padding:18px;
+  padding:20px;
   font-size:28px;
   border:none;
-  border-radius:16px;
+  border-radius:30px;
   color:#FFF;
   background:#444;
+
+  /* 立體感 */
+  box-shadow:0 6px 0 #2a2a2a;
+
+  transition:all 0.1s ease;
+}
+.menuBtn:active{
+  transform:translateY(4px);      /* 往下壓 */
+  box-shadow:0 2px 0 #2a2a2a;     /* 陰影變短 */
+}
+.menuBtn:hover{
+  background:#666;
 }
 
 .startBtn{}
