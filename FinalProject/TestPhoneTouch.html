@@ -116,9 +116,6 @@ img{
   background:#666;
 }
 
-.startBtn{}
-.listBtn{}
-
 /* 一覽表 */
 #reference{padding:30px;}
 
@@ -328,6 +325,15 @@ img{
   border-radius:12px;
   background:#837f7f;
   color:#fff;
+  box-shadow:0 6px 0 #2a2a2a;
+  transition:all 0.1s ease;
+}
+#nextBtn:active{
+  transform:translateY(4px);      /* 往下壓 */
+  box-shadow:0 2px 0 #2a2a2a;     /* 陰影變短 */
+}
+#nextBtn:hover{
+  background:#666;
 }
 
 /* 結束 */
