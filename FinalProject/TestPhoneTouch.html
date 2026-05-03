@@ -156,6 +156,13 @@
         transition:all .2s;
         cursor:pointer;
       }
+      .tabBtn.active{
+        background:#444;
+        transform:scale(1.08);
+      }
+      .tabBtn:hover{
+        background:#444;
+      }
       
       #itemsPanel{
         width:82%;
@@ -425,13 +432,12 @@
         -webkit-tap-highlight-color: transparent;
       }
       
-      button, .menuBtn, .topBack, .tabBtn, .itemCard, #detailClose, #nextBtn {
+      button, .itemCard{
         outline: none;
       }
 
       .menuBtn,
       .topBack,
-      .tabBtn,
       #detailClose,
       #nextBtn {
         box-shadow:0 6px 0 #2a2a2a;
@@ -439,7 +445,6 @@
       }
       .menuBtn:active,
       .topBack:active,
-      .tabBtn:active,
       #detailClose:active,
       #nextBtn:active {
         transform: translateY(4px);
@@ -447,7 +452,6 @@
       }
       .menuBtn:hover,
       .topBack:hover,
-      .tabBtn:hover,
       #detailClose:hover,
       #nextBtn:hover {
         background:#666;
