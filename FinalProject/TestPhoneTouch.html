@@ -545,7 +545,7 @@
         <div id="feedback">
           <div id="feedbackTitle"></div>
           <div id="feedbackText"></div>
-          <button id="nextBtn">下一題</button>
+          <button id="nextBtn">確認</button>
         </div>
         
         <div id="gameOver">
@@ -575,6 +575,7 @@
       let lives,score,totalQ,current,timeLimit,endTime,timer;
       let canDrop=false;
       let dragging=false;
+      let pendingGameOver=false;
       
       function showPage(id){
         document.querySelectorAll(".page").forEach(p=>p.style.display="none");
@@ -689,8 +690,7 @@
         renderLives();
         
         if(lives<=0){
-          endGame();
-          return;
+          pendingGameOver=true;
         }
         
         showFeedback(false);
@@ -708,7 +708,16 @@
         `為${typeName(current.type)}<br>${current.desc}`;
       }
       
-      document.getElementById("nextBtn").onclick=nextQuestion;
+      document.getElementById("nextBtn").onclick=function(){
+        document.getElementById("feedback").style.display="none";
+        
+        if(pendingGameOver){
+          pendingGameOver=false;
+          endGame();
+        }else{
+          nextQuestion();
+        }
+      }
       
       function endGame(){
         clearInterval(timer);
