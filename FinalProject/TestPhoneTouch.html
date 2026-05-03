@@ -70,9 +70,10 @@ img{
 #home{
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start;   /* ❌ 原本 center */
   align-items:center;
-  gap:40px;
+  padding-top:120px;            /* ✅ 往下推 */
+  gap:30px;
 }
 
 #title{
