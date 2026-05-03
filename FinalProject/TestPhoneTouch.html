@@ -66,25 +66,28 @@ img{
   inset:0;
 }
 
-/* 首頁 */
 #home{
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;   /* ❌ 原本 center */
   align-items:center;
-  padding-top:120px;            /* ✅ 往下推 */
+
+  width:100%;
+  max-width:500px;   /* ⭐ 核心：限制寬度 */
+  margin:0 auto;     /* ⭐ 核心：水平置中 */
+
+  padding-top:120px;
   gap:30px;
 }
 
 #title{
   font-size:56px;
-  color:#FFF;
   letter-spacing:4px;
-  /* font-weight:bold; */
+  text-align:center;   /* ⭐ 很重要 */
 }
 
 .menuBtn{
-  width:320px;
+  width:100%;          /* ⭐ 改這個 */
+  max-width:360px;     /* ⭐ 限制最大 */
   padding:18px;
   font-size:28px;
   border:none;
