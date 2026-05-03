@@ -370,7 +370,9 @@
       /* 垃圾桶 */
       .bin{
         width:100%;
-        text-align:center;
+        display:flex;
+        justify-content:center;
+        align-items:center;
       }
       .bin.hover{
         transform: scale(1.15);
@@ -383,8 +385,8 @@
       }
       
       .otherBox{
+        width:105px;
         height:140px;
-        aspect-ratio:3 / 4;
         background:#444;
         border-radius:12px;
         display:flex;
