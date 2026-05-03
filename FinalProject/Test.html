@@ -90,9 +90,27 @@
       #home{
         display:flex;
         flex-direction:column;
+        height:100%;
+      }
+      
+      /* 上半部 */
+      #homeTop{
+        flex:1;
+        display:flex;
         justify-content:center;
+        align-items:flex-end;
+        padding-bottom:40px;
+      }
+      
+      /* 下半部 */
+      #homeBottom{
+        flex:1;
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-start;
         align-items:center;
-        gap:28px;
+        gap:24px;
+        padding-top:40px;
       }
       
       #title{
@@ -470,9 +488,16 @@
     <div id="app">
       
       <div class="page" id="home">
-        <div id="title">垃圾分類挑戰</div>
-        <button class="menuBtn startBtn" onclick="startGame()">開始</button>
-        <button class="menuBtn listBtn" onclick="showPage('reference')">分類一覽表</button>
+      
+        <div id="homeTop">
+          <div id="title">垃圾分類挑戰</div>
+        </div>
+      
+        <div id="homeBottom">
+          <button class="menuBtn startBtn" onclick="startGame()">開始</button>
+          <button class="menuBtn listBtn" onclick="showPage('reference')">分類一覽表</button>
+        </div>
+      
       </div>
       
       <div class="page" id="reference">
