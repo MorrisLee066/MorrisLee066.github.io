@@ -37,8 +37,21 @@ body{
 }
 
 img{
-  -webkit-user-drag:none;
   user-select:none;
+}
+
+/* 所有非垃圾圖片禁止拖曳 */
+.life,
+.itemCard img,
+.bin img,
+#detailImg{
+  -webkit-user-drag:none;
+}
+
+/* 遊戲垃圾圖片允許拖曳 */
+#garbage{
+  -webkit-user-drag:element;
+  user-drag:element;
 }
 
 #app{
