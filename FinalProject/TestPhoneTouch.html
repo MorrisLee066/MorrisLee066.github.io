@@ -409,17 +409,22 @@
       
       /* 回饋 */
       #feedback{
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%);
         width:60%;
         background:#444;
         color:#fff;
         border-radius:18px;
         padding:28px;
-        text-align:left; /* ← 改這個 */
+        text-align:left;
+      }
+
+      #feedbackMask{
+        position:absolute;
+        inset:0;
+        background:rgba(0,0,0,.6); /* ⭐ 半透明黑 */
         display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:10;
       }
       
       #feedbackFlex{
@@ -642,19 +647,21 @@
           </div>
         
         </div>
-        
-        <div id="feedback">
-          
-          <div id="feedbackFlex">
-            <img id="feedbackImg">
+
+        <div id="feedbackMask">
+          <div id="feedback">
             
-            <div id="feedbackRight">
-              <div id="feedbackTitle"></div>
-              <div id="feedbackText"></div>
+            <div id="feedbackFlex">
+              <img id="feedbackImg">
+              
+              <div id="feedbackRight">
+                <div id="feedbackTitle"></div>
+                <div id="feedbackText"></div>
+              </div>
             </div>
+          
+            <button id="nextBtn">確認</button>
           </div>
-        
-          <button id="nextBtn">確認</button>
         </div>
         
         <div id="gameOver">
@@ -835,6 +842,7 @@
       
       function showFeedback(correct){
         document.getElementById("feedback").style.display="block";
+        document.getElementById("feedbackMask").style.display="flex";
         
         document.getElementById("feedbackImg").src = current.img;
         
@@ -849,6 +857,7 @@
       
       document.getElementById("nextBtn").onclick=function(){
         document.getElementById("feedback").style.display="none";
+        document.getElementById("feedbackMask").style.display="none";
         
         if(pendingGameOver){
           pendingGameOver=false;
