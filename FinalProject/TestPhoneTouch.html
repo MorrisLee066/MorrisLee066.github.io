@@ -563,7 +563,7 @@
       </div>
       
       <div class="page" id="reference">
-        <button class="topBack gameBackBtn" onclick="openExit()">回首頁</button>
+        <button class="topBack" onclick="showPage('home')">回首頁</button>
         <div id="refTitle">分類一覽表</div>
         
         <div id="refWrap">
@@ -595,7 +595,7 @@
       </div>
       
       <div class="page" id="gamePage">
-        <button class="topBack gameBackBtn" onclick="confirmBack()">回首頁</button>
+        <button class="topBack gameBackBtn" onclick="openExit()">回首頁</button>
         <div id="questionNumber">第1題</div>
         
         <div id="topBar">
@@ -751,7 +751,11 @@
       
       function closeExit(){
         document.getElementById("exitConfirm").style.display="none";
-        startTimer(); // ⭐ 繼續倒數
+      
+        // ⭐ 只在遊戲進行中才繼續
+        if(canDrop){
+          startTimer();
+        }
       }
       
       function exitGame(){
