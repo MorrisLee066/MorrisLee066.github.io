@@ -490,6 +490,25 @@
         color:#fff;
       }
 
+      #exitConfirm{
+        position:absolute;
+        inset:0;
+        background:rgba(0,0,0,.8);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:20; /* ⭐ 比其他都高 */
+      }
+      
+      #exitBox{
+        width:420px;
+        background:#6d6868;
+        color:#fff;
+        padding:30px;
+        border-radius:20px;
+        text-align:center;
+      }
+
       *{
         -webkit-tap-highlight-color: transparent;
       }
@@ -544,7 +563,7 @@
       </div>
       
       <div class="page" id="reference">
-        <button class="topBack" onclick="showPage('home')">回首頁</button>
+        <button class="topBack gameBackBtn" onclick="openExit()">回首頁</button>
         <div id="refTitle">分類一覽表</div>
         
         <div id="refWrap">
@@ -642,6 +661,15 @@
             <button class="endBtn" onclick="showPage('home')">回首頁</button>
           </div>
         </div>
+        <div id="exitConfirm">
+          <div id="exitBox">
+            <h2>確定離開遊戲？</h2>
+            <p style="margin:16px 0;">目前進度將不會保留</p>
+        
+            <button class="endBtn" onclick="exitGame()">離開</button>
+            <button class="endBtn" onclick="closeExit()">取消</button>
+          </div>
+        </div>
         
       </div>
     </div>
@@ -716,10 +744,19 @@
         nextQuestion();
       }
 
-      function confirmBack(){
-        if(confirm("確定要離開遊戲嗎？")){
-          showPage("home");
-        }
+      function openExit(){
+        clearInterval(timer); // ⭐ 暫停時間
+        document.getElementById("exitConfirm").style.display="flex";
+      }
+      
+      function closeExit(){
+        document.getElementById("exitConfirm").style.display="none";
+        startTimer(); // ⭐ 繼續倒數
+      }
+      
+      function exitGame(){
+        closeExit();
+        showPage("home");
       }
       
       function renderLives(){
