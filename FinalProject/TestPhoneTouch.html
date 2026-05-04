@@ -765,9 +765,9 @@
       function closeExit(){
         document.getElementById("exitConfirm").style.display="none";
       
-        if(canDrop){
-          endTime = Date.now() + pauseRemain; // ⭐ 接回去
-          startTimer(); // 這次才是「續跑」
+        if(canDrop && pauseRemain > 0){
+          endTime = Date.now() + pauseRemain;
+          startTimer();
         }
       }
       
