@@ -821,6 +821,10 @@
       }
       
       function startGame(){
+        closeAllMasks();
+        canDrop = true;
+        dragging = false;
+        pendingGameOver = false;
         lives=5;
         score=0;
         totalQ=0;
@@ -1035,6 +1039,13 @@
 
       function closeRules(){
         document.getElementById("rulesMask").style.display="none";
+      }
+
+      function closeAllMasks(){
+        ["feedbackMask","exitConfirm","gameOver","rulesMask","detailMask"]
+        .forEach(id=>{
+          document.getElementById(id).style.display="none";
+        });
       }
     </script>
     
