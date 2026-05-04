@@ -276,6 +276,13 @@
       }
       
       /* 遊戲頁 */
+      .gameBackBtn{
+        position:absolute;
+        top:2vh;
+        left:2vw;
+        z-index:5; /* ⭐ 很重要，避免被其他東西蓋住 */
+      }
+      
       #questionNumber{
         position:absolute;
         top:1vh;
@@ -286,7 +293,7 @@
       
       #topBar{
         position:absolute;
-        top:6vh;
+        top:10vh;
         left:2vw;
         right:2vw;
         display:flex;
@@ -569,7 +576,7 @@
       </div>
       
       <div class="page" id="gamePage">
-        
+        <button class="topBack gameBackBtn" onclick="confirmBack()">回首頁</button>
         <div id="questionNumber">第1題</div>
         
         <div id="topBar">
@@ -707,6 +714,12 @@
         showPage("gamePage");
         renderLives();
         nextQuestion();
+      }
+
+      function confirmBack(){
+        if(confirm("確定要離開遊戲嗎？")){
+          showPage("home");
+        }
       }
       
       function renderLives(){
