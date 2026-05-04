@@ -497,7 +497,6 @@
         display:none;
         justify-content:center;
         align-items:center;
-        z-index:20; /* ⭐ 比其他都高 */
       }
       
       #exitBox{
@@ -541,6 +540,10 @@
       .endBtn:hover{
         background:#666;
       }
+
+      #feedback{ z-index:10; }
+      #exitConfirm{ z-index:20; }
+      #gameOver{ z-index:30; }
       
     </style>
   </head>
