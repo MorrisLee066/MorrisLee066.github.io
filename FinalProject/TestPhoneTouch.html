@@ -527,37 +527,55 @@
         align-items:center;
         z-index:40;
       }
-
+      
       #rulesBox{
         width:70%;
         height:70%;
         background:#444;
         border-radius:18px;
-
+      
         display:flex;
         flex-direction:column;
         align-items:center;
-        justify-content:center;
-
-        gap:16px;
-
+      
+        padding:20px;
+        gap:12px;
+      
         box-shadow:0 10px 25px rgba(0,0,0,0.6);
       }
-
-      #rulesBox h1{
+      
+      #rulesTitle{
         margin:0;
         font-size:42px;
       }
-
-      /* ⭐ 圖片幾乎吃滿框 */
+      
+      /* ⭐ 19:10 圖片比例 */
       #rulesImg{
         width:90%;
-        flex:1;              /* ⭐ 吃掉中間所有空間 */
-        object-fit:contain; /* 可改 cover 如果你想填滿裁切 */
+        aspect-ratio: 19 / 10;
+        object-fit:cover;
         border-radius:12px;
+        flex-shrink:0;
       }
-
-      /* 確認按鈕沿用你原本 endBtn */
+      
+      /* ⭐ 底部按鈕區 */
+      #rulesNav{
+        width:100%;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-top:auto;
+      }
+      
+      /* 小型確認按鈕（沿用風格） */
+      .rulesBtn{
+        padding:10px 22px;
+        font-size:20px;
+        border:none;
+        border-radius:12px;
+        background:#888;
+        color:#fff;
+      }
 
       *{
         -webkit-tap-highlight-color: transparent;
@@ -572,7 +590,8 @@
       .topBack,
       #detailClose,
       #nextBtn,
-      .endBtn{
+      .endBtn,
+      .rulesBtn{
         box-shadow:0 6px 0 #2a2a2a;
         transition:all 0.1s ease;
       }
@@ -580,7 +599,8 @@
       .topBack:active,
       #detailClose:active,
       #nextBtn:active,
-      .endBtn:active{
+      .endBtn:active,
+      .rulesBtn:active{
         transform: translateY(4px);
         box-shadow: 0 2px 0 #2a2a2a;
       }
@@ -588,7 +608,8 @@
       .topBack:hover,
       #detailClose:hover,
       #nextBtn:hover,
-      .endBtn:hover{
+      .endBtn:hover,
+      .rulesBtn:hover{
         background:#666;
       }
 
@@ -666,13 +687,15 @@
       
       <div id="rulesMask">
         <div id="rulesBox">
-
-          <h1>規則</h1>
-
-          <img id="rulesImg" src="YOUR_IMAGE_URL_HERE">
-
-          <button class="endBtn" onclick="closeRules()">確認</button>
-
+      
+          <h1 id="rulesTitle">規則</h1>
+      
+          <img id="rulesImg" src="">
+      
+          <div id="rulesNav">
+            <!-- JS 會動態改這裡 -->
+          </div>
+      
         </div>
       </div>
       
@@ -772,7 +795,15 @@
         {name:"壁紙",img:"image (2).png",type:"general",desc:"妥善裝袋後交給循線垃圾車。"},
         {name:"紙本發票",img:"image (3).png",type:"general",desc:"妥善裝袋後交給循線垃圾車。"}
       ];
-      
+
+      const rulesImages = [
+        "rule_page1.png",
+        "rule_page2.png",
+        "rule_page3.png",
+        "rule_page4.png"
+      ];
+
+      let rulePage = 0;
       let lives,score,totalQ,current,timeLimit,endTime,timer;
       let canDrop=false;
       let dragging=false;
@@ -819,6 +850,54 @@
       
       function closeDetail(){
         document.getElementById("detailMask").style.display="none";
+      }
+
+      function openRules(){
+        rulePage = 0;
+        document.getElementById("rulesMask").style.display = "flex";
+        renderRules();
+      }
+      
+      function closeRules(){
+        document.getElementById("rulesMask").style.display = "none";
+      }
+      
+      function renderRules(){
+        document.getElementById("rulesImg").src = rulesImages[rulePage];
+      
+        const nav = document.getElementById("rulesNav");
+        nav.innerHTML = "";
+      
+        // ⭐ 左按鈕（上一頁）
+        if(rulePage > 0){
+          const prevBtn = document.createElement("button");
+          prevBtn.className = "rulesBtn";
+          prevBtn.innerText = "上一頁";
+          prevBtn.onclick = () => {
+            rulePage--;
+            renderRules();
+          };
+          nav.appendChild(prevBtn);
+        }else{
+          nav.appendChild(document.createElement("div"));
+        }
+      
+        // ⭐ 右按鈕
+        const rightBtn = document.createElement("button");
+        rightBtn.className = "rulesBtn";
+      
+        if(rulePage < 3){
+          rightBtn.innerText = "下一頁";
+          rightBtn.onclick = () => {
+            rulePage++;
+            renderRules();
+          };
+        }else{
+          rightBtn.innerText = "確認";
+          rightBtn.onclick = closeRules;
+        }
+      
+        nav.appendChild(rightBtn);
       }
       
       function startGame(){
