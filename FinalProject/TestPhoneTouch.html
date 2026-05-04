@@ -440,6 +440,12 @@
         border-radius:12px;
         background:#555;
       }
+
+      #feedbackItemName{
+        margin-top:10px;
+        font-size:22px;
+        text-align:center;
+      }
       
       #feedbackRight{
         flex:1;
@@ -652,7 +658,10 @@
           <div id="feedback">
             
             <div id="feedbackFlex">
-              <img id="feedbackImg">
+              <div>
+                <img id="feedbackImg">
+                <div id="feedbackItemName"></div> <!-- ⭐ 新增 -->
+              </div>
               
               <div id="feedbackRight">
                 <div id="feedbackTitle"></div>
@@ -841,6 +850,8 @@
         document.getElementById("feedbackMask").style.display="flex";
         
         document.getElementById("feedbackImg").src = current.img;
+
+        document.getElementById("feedbackItemName").innerText = current.name;
         
         document.getElementById("feedbackTitle").innerHTML =
         correct ?
