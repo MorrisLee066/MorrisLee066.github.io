@@ -553,6 +553,22 @@
         background:#666;
       }
 
+      #feedback,
+      #exitBox,
+      #gameOverBox,
+      #detailBox{
+        background:#444;
+        color:#fff;
+        border-radius:18px;
+        position:relative;
+        overflow:hidden;
+      
+        /* ⭐ 四周均勻陰影（核心） */
+        box-shadow:
+          0 0 0 1px rgba(0,0,0,0.35),   /* 微邊界（讓輪廓更清楚） */
+          0 10px 25px rgba(0,0,0,0.55); /* 四周柔陰影（浮起感） */
+      }
+
       #feedback{ z-index:10; }
       #exitConfirm{ z-index:20; }
       #gameOver{ z-index:30; }
