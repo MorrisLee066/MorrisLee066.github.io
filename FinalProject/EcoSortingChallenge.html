@@ -5,7 +5,7 @@
     <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>垃圾分類挑戰-手機拖曳測試</title>
+    <title>垃圾分類挑戰</title>
     
     <style>
       
@@ -21,6 +21,8 @@
         padding:0;
         box-sizing:border-box;
         font-weight:400;
+        font-family:'Huninn', Arial, sans-serif;
+        -webkit-tap-highlight-color: transparent;
       }
       
       body{
@@ -31,17 +33,12 @@
         user-select:none;
       }
       
-      *{
-        font-family:'Huninn', Arial, sans-serif;
-      }
-      
       img{
         user-select:none;
       }
       
       /* 非遊戲垃圾圖禁止拖曳 */
       .life,
-      .itemCard img,
       .bin img,
       #detailImg{
         -webkit-user-drag:none;
@@ -551,8 +548,7 @@
       
       /* ⭐ 19:10 圖片比例 */
       #rulesImg{
-        width:100%;
-        max-height:50vh;   /* ⭐ 控制最大高度 */
+        max-height:60vh;   /* ⭐ 控制最大高度 */
         aspect-ratio: 19 / 10;
         object-fit:cover;
         border-radius:12px;
@@ -578,10 +574,6 @@
         border-radius:12px;
         background:#837f7f;
         color:#fff;
-      }
-
-      *{
-        -webkit-tap-highlight-color: transparent;
       }
       
       button, .itemCard, #garbage{
