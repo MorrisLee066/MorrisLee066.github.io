@@ -569,11 +569,13 @@
       
       /* 小型確認按鈕（沿用風格） */
       .rulesBtn{
-        padding:10px 22px;
-        font-size:20px;
+        margin:18px auto 0;
+        display:block;
+        padding:14px 32px;
+        font-size:24px;
         border:none;
         border-radius:12px;
-        background:#888;
+        background:#837f7f;
         color:#fff;
       }
 
@@ -869,36 +871,34 @@
         const nav = document.getElementById("rulesNav");
         nav.innerHTML = "";
       
-        // ⭐ 左按鈕（上一頁）
+        // ⭐ 左按鈕
         if(rulePage > 0){
-          const prevBtn = document.createElement("button");
-          prevBtn.className = "rulesBtn";
-          prevBtn.innerText = "上一頁";
-          prevBtn.onclick = () => {
+          const btn = document.createElement("button");
+          btn.className = "rulesBtn";
+          btn.innerText = "上一頁";
+          btn.onclick = () => {
             rulePage--;
             renderRules();
           };
-          nav.appendChild(prevBtn);
-        }else{
-          nav.appendChild(document.createElement("div"));
+          nav.appendChild(btn);
         }
       
         // ⭐ 右按鈕
-        const rightBtn = document.createElement("button");
-        rightBtn.className = "rulesBtn";
+        const btn = document.createElement("button");
+        btn.className = "rulesBtn";
       
         if(rulePage < 3){
-          rightBtn.innerText = "下一頁";
-          rightBtn.onclick = () => {
+          btn.innerText = "下一頁";
+          btn.onclick = () => {
             rulePage++;
             renderRules();
           };
         }else{
-          rightBtn.innerText = "確認";
-          rightBtn.onclick = closeRules;
+          btn.innerText = "確認";
+          btn.onclick = closeRules;
         }
       
-        nav.appendChild(rightBtn);
+        nav.appendChild(btn);
       }
       
       function startGame(){
@@ -1113,14 +1113,6 @@
           wrongAnswer(false);
         }
       });
-      
-      function openRules(){
-        document.getElementById("rulesMask").style.display="flex";
-      }
-
-      function closeRules(){
-        document.getElementById("rulesMask").style.display="none";
-      }
 
       function closeAllMasks(){
         ["feedbackMask","exitConfirm","gameOver","rulesMask","detailMask"]
