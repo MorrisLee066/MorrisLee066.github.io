@@ -332,14 +332,6 @@
         background:#ffae00;
       }
       
-      #garbage{
-        width:160px;
-        height:160px;
-        object-fit:contain;
-        border-radius:18px;
-        -webkit-user-drag:element;
-      }
-      
       #bottomArea{
         position:absolute;
         bottom:4vh;
@@ -348,6 +340,26 @@
         justify-content:center;   /* ⭐ 改這個 */
         gap:3vw;                 /* ⭐ 控制左右距離 */
         align-items: center;
+      }
+      
+      /* 中間垃圾 */
+      #centerGarbage{
+        width:30%;
+        text-align:center;
+      }
+      
+      #garbage{
+        width:160px;
+        height:160px;
+        object-fit:contain;
+        border-radius:18px;
+        -webkit-user-drag:element;
+      }
+      
+      /* 垃圾名稱 */
+      #garbageName{
+        margin-top:10px;
+        font-size:28px;
       }
       
       /* 左右欄 */
@@ -359,25 +371,12 @@
         align-items:center;
       }
       
-      /* 中間垃圾 */
-      #centerGarbage{
-        width:30%;
-        text-align:center;
-      }
-      
-      /* 垃圾名稱 */
-      #garbageName{
-        margin-top:10px;
-        font-size:28px;
-      }
-      
       /* 垃圾桶 */
       .bin{
         width:100%;
         display:flex;
         justify-content:center;
         align-items:center;
-        border-radius:18px;
         transform: translateY(-3vh);
         transition: transform 0.15s ease; /* ⭐ 新增 */
       }
@@ -390,6 +389,7 @@
       .bin img{
         width:100%;
         max-height:140px;
+        border-radius:18px;
         object-fit:contain;
       }
       
