@@ -698,6 +698,7 @@
       ];
       
       let lives,score,totalQ,current,timeLimit,endTime,timer;
+      let pauseRemain = 0;
       let canDrop=false;
       let dragging=false;
       let pendingGameOver=false;
@@ -756,16 +757,17 @@
       }
 
       function openExit(){
-        clearInterval(timer); // ⭐ 暫停時間
+        pauseRemain = endTime - Date.now(); // ⭐ 記住剩多少時間
+        clearInterval(timer);
         document.getElementById("exitConfirm").style.display="flex";
       }
       
       function closeExit(){
         document.getElementById("exitConfirm").style.display="none";
       
-        // ⭐ 只在遊戲進行中才繼續
         if(canDrop){
-          startTimer();
+          endTime = Date.now() + pauseRemain; // ⭐ 接回去
+          startTimer(); // 這次才是「續跑」
         }
       }
       
