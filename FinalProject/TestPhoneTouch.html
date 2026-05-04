@@ -756,11 +756,13 @@
       }
 
       function openExit(){
+        canDrop = false; // ⭐ 禁止操作
         document.getElementById("exitConfirm").style.display="flex";
       }
       
       function closeExit(){
         document.getElementById("exitConfirm").style.display="none";
+        canDrop = true; // ⭐ 恢復操作
       }
       
       function exitGame(){
