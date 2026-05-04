@@ -698,7 +698,6 @@
       ];
       
       let lives,score,totalQ,current,timeLimit,endTime,timer;
-      let pauseRemain = 0;
       let canDrop=false;
       let dragging=false;
       let pendingGameOver=false;
@@ -757,18 +756,11 @@
       }
 
       function openExit(){
-        pauseRemain = Math.max(0, endTime - Date.now());
-        clearInterval(timer);
         document.getElementById("exitConfirm").style.display="flex";
       }
       
       function closeExit(){
         document.getElementById("exitConfirm").style.display="none";
-      
-        if(canDrop && pauseRemain > 0){
-          endTime = Date.now() + pauseRemain;
-          startTimer();
-        }
       }
       
       function exitGame(){
@@ -801,32 +793,27 @@
         document.getElementById("timerFill").style.width="100%";
         
         canDrop=true;
-        endTime = null;
         startTimer();
       }
       
       function startTimer(){
         clearInterval(timer);
-      
-        // ⭐ 只有在沒有既有 endTime 時才設定
-        if(!endTime){
-          endTime = Date.now() + timeLimit * 1000;
-        }
-      
-        timer = setInterval(()=>{
-          let remain = endTime - Date.now();
-      
-          if(remain <= 0){
+        
+        endTime=Date.now()+timeLimit*1000;
+        
+        timer=setInterval(()=>{
+          let remain=endTime-Date.now();
+          
+          if(remain<=0){
             clearInterval(timer);
-            document.getElementById("timerFill").style.width = "0%";
+            document.getElementById("timerFill").style.width="0%";
             wrongAnswer(true);
-            endTime = null; // ⭐ 重置
             return;
           }
-      
-          let percent = remain / (timeLimit * 1000) * 100;
-          document.getElementById("timerFill").style.width = percent + "%";
-        }, 20);
+          
+          let percent=remain/(timeLimit*1000)*100;
+          document.getElementById("timerFill").style.width=percent+"%";
+        },20);
       }
       
       function wrongAnswer(timeout=false){
