@@ -374,9 +374,12 @@
         justify-content:center;
         align-items:center;
         transform: translateY(-3vh);
+        transition: transform 0.15s ease; /* ⭐ 新增 */
       }
-      .bin.hover{
-        transform: scale(1.15);
+      
+      /* ⭐ 放大狀態 */
+      .bin.active{
+        transform: translateY(-3vh) scale(1.15);
       }
       
       .bin img{
@@ -823,11 +826,24 @@
       document.querySelectorAll(".bin").forEach(bin=>{
         
         bin.addEventListener("dragover",e=>{
-          if(canDrop) e.preventDefault();
+          if(canDrop){
+            e.preventDefault();
+      
+            // ⭐ 清掉全部
+            document.querySelectorAll(".bin").forEach(b=>b.classList.remove("active"));
+      
+            // ⭐ 當前放大
+            bin.classList.add("active");
+          }
+        });
+      
+        bin.addEventListener("dragleave",()=>{
+          bin.classList.remove("active");
         });
         
         bin.addEventListener("drop",e=>{
           e.preventDefault();
+          document.querySelectorAll(".bin").forEach(b=>b.classList.remove("active"));
           if(!canDrop || !dragging) return;
           
           dragging=false;
