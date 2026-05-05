@@ -5,7 +5,7 @@
     <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>垃圾分類挑戰-手機拖曳測試</title>
+    <title>垃圾分類挑戰</title>
     
     <style>
       
@@ -21,6 +21,8 @@
         padding:0;
         box-sizing:border-box;
         font-weight:400;
+        font-family:'Huninn', Arial, sans-serif;
+        -webkit-tap-highlight-color: transparent;
       }
       
       body{
@@ -31,17 +33,12 @@
         user-select:none;
       }
       
-      *{
-        font-family:'Huninn', Arial, sans-serif;
-      }
-      
       img{
         user-select:none;
       }
       
       /* 非遊戲垃圾圖禁止拖曳 */
       .life,
-      .itemCard img,
       .bin img,
       #detailImg{
         -webkit-user-drag:none;
@@ -578,10 +575,6 @@
         background:#837f7f;
         color:#fff;
       }
-
-      *{
-        -webkit-tap-highlight-color: transparent;
-      }
       
       button, .itemCard, #garbage{
         outline: none;
@@ -650,8 +643,8 @@
       
         <div id="homeBottom">
           <button class="menuBtn startBtn" onclick="startGame()">開始</button>
-          <button class="menuBtn listBtn" onclick="showPage('reference')">分類一覽表</button>
           <button class="menuBtn" onclick="openRules()">規則</button>
+          <button class="menuBtn listBtn" onclick="showPage('reference')">分類一覽表</button>
         </div>
       
       </div>
@@ -683,7 +676,7 @@
                 <p id="detailDesc"></p>
               </div>
             </div>
-            <button id="detailClose" onclick="closeDetail()">確定</button>
+            <button id="detailClose">確定</button>
           </div>
         </div>
       </div>
@@ -710,7 +703,6 @@
           <div id="lives"></div>
           
           <div id="timerWrap">
-            <span>倒數計時</span>
             <div id="timerBar">
               <div id="timerFill"></div>
             </div>
